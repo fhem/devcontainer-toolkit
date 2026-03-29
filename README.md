@@ -8,6 +8,11 @@ environment:
 - optional add-ons such as SVN support
 - scaffold and sync helpers for consuming repositories
 
+Module-specific reverse proxies are intentionally out of scope for the toolkit
+core. If a consumer needs `Caddy` or a similar proxy for a module-specific
+workflow, keep that proxy config in the consumer repository instead of the
+shared scaffold.
+
 The toolkit is meant to be maintained centrally and consumed by module
 repositories through the sync script in `sync/`.
 

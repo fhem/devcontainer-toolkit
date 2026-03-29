@@ -6,7 +6,6 @@ ARG LOCAL_GID=1000
 RUN apt-get update \
  && DEBIAN_FRONTEND=noninteractive apt-get install -y --no-install-recommends \
     ca-certificates \
-    caddy \
     git \
     less \
     openssh-client \

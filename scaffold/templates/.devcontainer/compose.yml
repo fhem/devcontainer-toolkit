@@ -17,7 +17,7 @@ services:
     command:
       - /bin/bash
       - -lc
-      - bash __WORKSPACE_DIR__/.devcontainer/scripts/bootstrap-worktree.sh && caddy run --config __WORKSPACE_DIR__/.devcontainer/Caddyfile >/opt/fhem-dev-data/log/caddy.log 2>&1 & exec /entry.sh start
+      - bash __WORKSPACE_DIR__/.devcontainer/scripts/bootstrap-worktree.sh && exec /entry.sh start
     environment:
       TZ: Europe/Berlin
       HOME: /home/sven

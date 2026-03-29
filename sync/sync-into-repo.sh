@@ -26,7 +26,6 @@ render_template() {
 }
 
 managed_files=(
-  ".devcontainer/Caddyfile"
   ".devcontainer/Dockerfile"
   ".devcontainer/compose.yml"
   ".devcontainer/compose.addon-svn.yml"
