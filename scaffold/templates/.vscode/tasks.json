@@ -1,0 +1,79 @@
+{
+  "version": "2.0.0",
+  "inputs": [
+    {
+      "id": "testFile",
+      "type": "promptString",
+      "description": "Relative path to the .t test file",
+      "default": "t/FHEM/00_MQTT2_SERVER/01_autocreate.t"
+    }
+  ],
+  "tasks": [
+    {
+      "label": "FHEM: run all tests",
+      "type": "shell",
+      "command": "bash",
+      "args": [
+        "-lc",
+        "prove $(find . -name '*.t')"
+      ],
+      "options": {
+        "cwd": "${workspaceFolder}/fhem"
+      },
+      "group": {
+        "kind": "test",
+        "isDefault": true
+      },
+      "problemMatcher": []
+    },
+    {
+      "label": "FHEM: run single test",
+      "type": "shell",
+      "command": "perl",
+      "args": [
+        "fhem.pl",
+        "-t",
+        "${input:testFile}"
+      ],
+      "options": {
+        "cwd": "${workspaceFolder}/fhem"
+      },
+      "group": "test",
+      "problemMatcher": []
+    },
+    {
+      "label": "FHEM: pick and run test",
+      "type": "shell",
+      "command": "bash",
+      "args": [
+        ".devcontainer/scripts/pick-fhem-test.sh"
+      ],
+      "options": {
+        "cwd": "${workspaceFolder}",
+        "env": {
+          "FHEM_TEST_ROOT": "${workspaceFolder}/fhem"
+        }
+      },
+      "group": "test",
+      "problemMatcher": []
+    },
+    {
+      "label": "FHEM: SVN checkout",
+      "type": "shell",
+      "command": "bash",
+      "args": [
+        ".devcontainer/scripts/svn-checkout.sh"
+      ],
+      "problemMatcher": []
+    },
+    {
+      "label": "FHEM: Sync Module -> SVN",
+      "type": "shell",
+      "command": "bash",
+      "args": [
+        ".devcontainer/scripts/sync-module-to-svn.sh"
+      ],
+      "problemMatcher": []
+    }
+  ]
+}
