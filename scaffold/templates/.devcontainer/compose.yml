@@ -1,5 +1,5 @@
 # Managed by FHEM Devcontainer Toolkit.
-name: __REPO_NAME__-dev-env
+name: __REPO_SLUG__-dev-env
 
 services:
   fhem-dev:
@@ -9,8 +9,8 @@ services:
       args:
         LOCAL_UID: 1000
         LOCAL_GID: 1000
-    image: __REPO_NAME__-dev-local:bookworm
-    container_name: __REPO_NAME__-dev
+    image: __REPO_SLUG__-dev-local:bookworm
+    container_name: __REPO_SLUG__-dev
     init: true
     entrypoint: []
     working_dir: __WORKSPACE_DIR__
@@ -39,7 +39,7 @@ services:
       - "${FHEM_TELNET_PORT:-17072}:7072"
     volumes:
       - ..:__WORKSPACE_DIR__
-      - ../fhem-devcontainer-toolkit:/workspace/fhem-devcontainer-toolkit
+      - ../../fhem-devcontainer-toolkit:/workspace/fhem-devcontainer-toolkit
       - ${HOME}/.gitconfig:/home/sven/.gitconfig:ro
       - fhem_dev_worktree:/opt/fhem
       - fhem_dev_data:/opt/fhem-dev-data

@@ -4,4 +4,4 @@ services:
       FHEM_SOURCE_ROOT: /workspace/fhem-source/fhem
       MODULE_OVERLAY_ROOT: __WORKSPACE_DIR__
     volumes:
-      - ../fhem-source:/workspace/fhem-source
+      - ../../fhem-source:/workspace/fhem-source

@@ -33,6 +33,13 @@ external FHEM checkout.
 - `scaffold/templates/`: managed file templates for consumer repositories
 - `sync/`: repo sync entrypoint
 
+## Recommended Flow
+
+1. Clone the toolkit next to the consumer repository.
+2. Create or clone the consumer repository.
+3. Run `sync/sync-into-repo.sh <target-repo>`.
+4. Add the repo-specific layer such as profiles, config, and SVN manifest.
+
 ## Consumption Model
 
 Run `sync/sync-into-repo.sh <target-repo>` to initialize or update a consumer
