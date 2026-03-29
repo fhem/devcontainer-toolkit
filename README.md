@@ -43,7 +43,8 @@ external FHEM checkout.
 1. Clone the toolkit next to the consumer repository.
 2. Create or clone the consumer repository.
 3. Run `sync/sync-into-repo.sh <target-repo>`.
-4. Add the repo-specific layer such as profiles, config, and SVN manifest.
+4. Add the repo-specific layer such as profiles, config, SVN manifest, and any
+   host-specific mounts like `.gitconfig`.
 
 ## Consumption Model
 
@@ -51,3 +52,6 @@ Run `sync/sync-into-repo.sh <target-repo>` to initialize or update a consumer
 repository. Generated files are intentionally thin and resolve the toolkit from
 the consumer's sibling checkout `../fhem-devcontainer-toolkit` unless
 `FHEM_TOOLKIT_ROOT` overrides that location.
+
+Sync preserves existing `.gitignore` entries and appends the toolkit defaults
+instead of overwriting repo-local ignore rules.

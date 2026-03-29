@@ -40,7 +40,6 @@ services:
     volumes:
       - ..:__WORKSPACE_DIR__
       - ../../fhem-devcontainer-toolkit:/workspace/fhem-devcontainer-toolkit
-      - ${HOME}/.gitconfig:/home/sven/.gitconfig:ro
       - fhem_dev_worktree:/opt/fhem
       - fhem_dev_data:/opt/fhem-dev-data
 

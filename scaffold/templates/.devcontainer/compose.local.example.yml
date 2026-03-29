@@ -5,3 +5,5 @@ services:
       MODULE_OVERLAY_ROOT: __WORKSPACE_DIR__
     volumes:
       - ../../fhem-source:/workspace/fhem-source
+      # Optional: forward host git identity into the container.
+      # - ${HOME}/.gitconfig:/home/sven/.gitconfig:ro

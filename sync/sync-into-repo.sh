@@ -43,12 +43,30 @@ managed_files=(
   ".devcontainer/default/compose.override.yml"
   ".devcontainer/default/devcontainer.json"
   ".vscode/tasks.json"
-  ".gitignore"
 )
+
+sync_gitignore() {
+  local template_path="${TEMPLATE_ROOT}/.gitignore"
+  local target_path="${TARGET_REPO}/.gitignore"
+
+  if [[ ! -f "${target_path}" ]]; then
+    cp "${template_path}" "${target_path}"
+    return
+  fi
+
+  while IFS= read -r line || [[ -n "${line}" ]]; do
+    if grep -Fqx -- "${line}" "${target_path}"; then
+      continue
+    fi
+    printf '%s\n' "${line}" >> "${target_path}"
+  done < "${template_path}"
+}
 
 for rel_path in "${managed_files[@]}"; do
   render_template "${TEMPLATE_ROOT}/${rel_path}" "${TARGET_REPO}/${rel_path}"
 done
+
+sync_gitignore
 
 chmod +x \
   "${TARGET_REPO}/.devcontainer/scripts/bootstrap-worktree.sh" \
