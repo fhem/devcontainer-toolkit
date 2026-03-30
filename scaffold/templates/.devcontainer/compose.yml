@@ -7,8 +7,9 @@ services:
       context: ..
       dockerfile: .devcontainer/Dockerfile
       args:
-        LOCAL_UID: 1000
-        LOCAL_GID: 1000
+        LOCAL_UID: ${LOCAL_UID:-1000}
+        LOCAL_GID: ${LOCAL_GID:-1000}
+        LOCAL_USER: ${LOCAL_USER:-dev}
     image: __REPO_SLUG__-dev-local:bookworm
     container_name: __REPO_SLUG__-dev
     init: true
@@ -20,15 +21,15 @@ services:
       - bash __WORKSPACE_DIR__/.devcontainer/scripts/bootstrap-worktree.sh && exec /entry.sh start
     environment:
       TZ: Europe/Berlin
-      HOME: /home/sven
+      HOME: /home/${LOCAL_USER:-dev}
       XDG_CONFIG_HOME: /opt/fhem-dev-data/home-config
       SVN_EDITOR: "code --wait"
       VISUAL: "code --wait"
       EDITOR: "code --wait"
       LOGFILE: /opt/fhem-dev-data/log/fhem-%Y-%m-%d.log
       RESTART: 0
-      FHEM_UID: 1000
-      FHEM_GID: 1000
+      FHEM_UID: ${LOCAL_UID:-1000}
+      FHEM_GID: ${LOCAL_GID:-1000}
       MODULE_REPO_ROOT: __WORKSPACE_DIR__
       MODULE_OVERLAY_ROOT: ${MODULE_OVERLAY_ROOT:-__WORKSPACE_DIR__}
       FHEM_TOOLKIT_ROOT: ${FHEM_TOOLKIT_ROOT:-/workspace/fhem-devcontainer-toolkit}
