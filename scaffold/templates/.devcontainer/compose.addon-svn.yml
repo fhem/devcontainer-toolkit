@@ -3,6 +3,6 @@ services:
     environment:
       FHEM_SVN_ROOT: ${FHEM_SVN_ROOT:-/workspace/fhem-svn/fhem}
     volumes:
-      - ../fhem-svn:/workspace/fhem-svn
-      - ${HOME}/.ssh:/home/sven/.ssh:ro
-      - ${HOME}/.subversion:/home/sven/.subversion
+      - ../../fhem-svn:/workspace/fhem-svn
+      - ${HOME}/.ssh:/home/${LOCAL_USER:-dev}/.ssh:ro
+      - ${HOME}/.subversion:/home/${LOCAL_USER:-dev}/.subversion

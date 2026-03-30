@@ -12,3 +12,7 @@ Local, user-specific overrides belong in:
 - `.devcontainer/.env.local`
 
 These files are intentionally not versioned.
+
+The scaffold uses a generic container user named `dev` by default. Override
+`LOCAL_USER`, `LOCAL_UID`, and `LOCAL_GID` in local compose overrides if your
+host setup needs matching ownership or different home-directory mount targets.

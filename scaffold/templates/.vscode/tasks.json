@@ -4,8 +4,8 @@
     {
       "id": "testFile",
       "type": "promptString",
-      "description": "Relative path to the .t test file",
-      "default": "t/FHEM/00_MQTT2_SERVER/01_autocreate.t"
+      "description": "Path to the .t test file, relative to the repo test root",
+      "default": "path/to/test.t"
     }
   ],
   "tasks": [
@@ -14,11 +14,10 @@
       "type": "shell",
       "command": "bash",
       "args": [
-        "-lc",
-        "prove $(find . -name '*.t')"
+        ".devcontainer/scripts/run-all-tests.sh"
       ],
       "options": {
-        "cwd": "${workspaceFolder}/fhem"
+        "cwd": "${workspaceFolder}"
       },
       "group": {
         "kind": "test",
@@ -29,14 +28,13 @@
     {
       "label": "FHEM: run single test",
       "type": "shell",
-      "command": "perl",
+      "command": "bash",
       "args": [
-        "fhem.pl",
-        "-t",
+        ".devcontainer/scripts/run-single-test.sh",
         "${input:testFile}"
       ],
       "options": {
-        "cwd": "${workspaceFolder}/fhem"
+        "cwd": "${workspaceFolder}"
       },
       "group": "test",
       "problemMatcher": []
@@ -49,10 +47,7 @@
         ".devcontainer/scripts/pick-fhem-test.sh"
       ],
       "options": {
-        "cwd": "${workspaceFolder}",
-        "env": {
-          "FHEM_TEST_ROOT": "${workspaceFolder}/fhem"
-        }
+        "cwd": "${workspaceFolder}"
       },
       "group": "test",
       "problemMatcher": []
