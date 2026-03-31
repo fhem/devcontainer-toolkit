@@ -4,6 +4,8 @@ ARG LOCAL_UID=1000
 ARG LOCAL_GID=1000
 ARG LOCAL_USER=dev
 
+COPY base/cpanfile /usr/src/app/core/cpanfile
+
 RUN apt-get update \
  && DEBIAN_FRONTEND=noninteractive apt-get install -y --no-install-recommends \
     ca-certificates \
@@ -19,8 +21,11 @@ RUN groupadd --gid ${LOCAL_GID} ${LOCAL_USER} \
 
 ENV HOME=/home/${LOCAL_USER}
 
-RUN cpm install -L /usr/src/app/core --show-build-log-on-failure \
-    Perl::Critic \
-    Test2::Suite
+RUN cpm install --cpanfile /usr/src/app/core/cpanfile \
+    --show-build-log-on-failure \
+    --with-recommends \
+    --without-test \
+    --workers=$(nproc) \
+    -L /usr/src/app/core
 
 ENV PERL5LIB=/usr/src/app/core/lib/perl5

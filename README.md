@@ -40,6 +40,11 @@ external FHEM checkout.
 - `scaffold/templates/`: managed file templates for consumer repositories
 - `sync/`: repo sync entrypoint
 
+The toolkit installs generic Perl dependencies from its own `cpanfile`. The
+scaffolded consumer Dockerfile also installs an additional root-level `cpanfile`
+when the repository provides one, so repo-specific Perl dependencies can stay
+with the consumer code.
+
 ## Recommended Flow
 
 1. Clone the toolkit next to the consumer repository.
