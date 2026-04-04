@@ -3,6 +3,7 @@
   "name": "FHEM Dev",
   "dockerComposeFile": [
     "../compose.yml",
+    "../compose.local.yml",
     "compose.override.yml"
   ],
   "service": "fhem-dev",
