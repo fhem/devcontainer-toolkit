@@ -18,7 +18,7 @@ PS3="Select a test to run: "
 select test in "${tests[@]}"; do
   if [[ -n "${test:-}" ]]; then
     cd "${FHEM_RUN_ROOT}"
-    exec prove "${FHEM_TEST_ROOT}/${test#./}"
+    exec prove -I FHEM -r --exec "perl fhem.pl -t" "${FHEM_TEST_ROOT}/${test#./}"
   fi
 
   echo "Invalid selection" >&2

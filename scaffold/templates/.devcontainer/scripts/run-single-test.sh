@@ -7,14 +7,12 @@ if [[ $# -ne 1 ]]; then
 fi
 
 SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
-MODULE_REPO_ROOT="${MODULE_REPO_ROOT:-$(cd "${SCRIPT_DIR}/../.." && pwd)}"
-TEST_ARG="$1"
+# shellcheck source=.devcontainer/scripts/test-lib.sh
+source "${SCRIPT_DIR}/test-lib.sh"
 
-if [[ -d "${MODULE_REPO_ROOT}/t" ]]; then
-  TEST_ROOT="${FHEM_TEST_ROOT:-${MODULE_REPO_ROOT}/t}"
-else
-  TEST_ROOT="${FHEM_TEST_ROOT:-${MODULE_REPO_ROOT}/fhem/t}"
-fi
+MODULE_REPO_ROOT="$(get_module_repo_root)"
+TEST_ARG="$1"
+TEST_ROOT="$(get_test_root "${MODULE_REPO_ROOT}")"
 
 if [[ "${TEST_ARG}" = /* ]]; then
   TEST_FILE="${TEST_ARG}"
@@ -27,17 +25,10 @@ if [[ ! -f "${TEST_FILE}" ]]; then
   exit 1
 fi
 
-if [[ -f "${FHEM_RUNTIME_ROOT:-/opt/fhem}/fhem.pl" ]]; then
-  RUN_ROOT="${FHEM_RUNTIME_ROOT:-/opt/fhem}"
-elif [[ -f "${MODULE_REPO_ROOT}/fhem/fhem.pl" ]]; then
-  RUN_ROOT="${FHEM_SOURCE_ROOT:-${MODULE_REPO_ROOT}/fhem}"
+if is_fhem_module_test "${TEST_ROOT}" "${TEST_FILE}"; then
+  KIND="fhem"
 else
-  RUN_ROOT="${FHEM_SOURCE_ROOT:?FHEM_SOURCE_ROOT must point to a full FHEM source tree or a bootstrapped runtime}"
+  KIND="perl"
 fi
 
-
-cd "${RUN_ROOT}"
-PERL5LIB="${RUN_ROOT}/lib:${FHEM_PERL5LIB:-/usr/src/app/core/lib/perl5}${PERL5LIB:+:$PERL5LIB}"
-export PERL5LIB
-
-prove "${TEST_FILE}"
+exec "${SCRIPT_DIR}/run-selected-tests.sh" "${KIND}" "${TEST_FILE}"

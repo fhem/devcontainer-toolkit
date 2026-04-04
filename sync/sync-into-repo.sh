@@ -36,8 +36,11 @@ managed_files=(
   ".devcontainer/config/fhem.cfg"
   ".devcontainer/svn-manifest.txt"
   ".devcontainer/scripts/bootstrap-worktree.sh"
+  ".devcontainer/scripts/test-lib.sh"
+  ".devcontainer/scripts/run-active-test.sh"
   ".devcontainer/scripts/pick-fhem-test.sh"
   ".devcontainer/scripts/run-all-tests.sh"
+  ".devcontainer/scripts/run-selected-tests.sh"
   ".devcontainer/scripts/run-single-test.sh"
   ".devcontainer/scripts/svn-checkout.sh"
   ".devcontainer/scripts/sync-module-to-svn.sh"
@@ -71,8 +74,11 @@ sync_gitignore
 
 chmod +x \
   "${TARGET_REPO}/.devcontainer/scripts/bootstrap-worktree.sh" \
+  "${TARGET_REPO}/.devcontainer/scripts/test-lib.sh" \
+  "${TARGET_REPO}/.devcontainer/scripts/run-active-test.sh" \
   "${TARGET_REPO}/.devcontainer/scripts/pick-fhem-test.sh" \
   "${TARGET_REPO}/.devcontainer/scripts/run-all-tests.sh" \
+  "${TARGET_REPO}/.devcontainer/scripts/run-selected-tests.sh" \
   "${TARGET_REPO}/.devcontainer/scripts/run-single-test.sh" \
   "${TARGET_REPO}/.devcontainer/scripts/svn-checkout.sh" \
   "${TARGET_REPO}/.devcontainer/scripts/sync-module-to-svn.sh"

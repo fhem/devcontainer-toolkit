@@ -17,7 +17,8 @@
         "richterger.perl",
         "eamodio.gitlens",
         "openai.chatgpt",
-        "ms-python.python"
+        "ms-python.python",
+        "rioj7.command-variable"
       ]
     }
   },
