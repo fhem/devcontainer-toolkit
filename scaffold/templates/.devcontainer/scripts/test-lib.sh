@@ -121,16 +121,34 @@ run_tests() {
   local -a tests=( "$@" )
   local -a cmd=( prove )
   local -a PROVE_OPTIONS=()
+  local -a PROVE_ARGS=()
+  local prove_exec=""
 
   split_prove_options
   if [[ ${#PROVE_OPTIONS[@]} -gt 0 ]]; then
     cmd+=( "${PROVE_OPTIONS[@]}" )
   fi
 
-  if [[ "${kind}" == "fhem" ]]; then
-    cmd+=( -I FHEM -r --exec "perl fhem.pl -t" )
+  if [[ -n "${FHEM_PROVE_ARGS:-}" ]]; then
+    # shellcheck disable=SC2206
+    PROVE_ARGS=( ${FHEM_PROVE_ARGS} )
+    cmd+=( "${PROVE_ARGS[@]}" )
+  elif [[ "${kind}" == "fhem" ]]; then
+    cmd+=( -I FHEM -r )
   else
-    cmd+=( --exec "perl -I lib -I FHEM" -r )
+    cmd+=( -r )
+  fi
+
+  if [[ -n "${FHEM_PROVE_EXEC:-}" ]]; then
+    prove_exec="${FHEM_PROVE_EXEC}"
+  elif [[ "${kind}" == "fhem" ]]; then
+    prove_exec="perl fhem.pl -t"
+  else
+    prove_exec="perl -I lib -I FHEM"
+  fi
+
+  if [[ -n "${prove_exec}" ]]; then
+    cmd+=( --exec "${prove_exec}" )
   fi
 
   cmd+=( "${tests[@]}" )
