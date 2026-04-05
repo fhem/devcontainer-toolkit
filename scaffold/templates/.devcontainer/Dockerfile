@@ -2,8 +2,8 @@
 # Managed by FHEM Devcontainer Toolkit.
 FROM ghcr.io/fhem/fhem-minimal-docker:5-bookworm
 
-ARG LOCAL_UID=1000
-ARG LOCAL_GID=1000
+ARG LOCAL_UID=
+ARG LOCAL_GID=
 ARG LOCAL_USER=dev
 
 COPY .devcontainer/cpanfile /usr/src/app/core/cpanfile
@@ -19,10 +19,17 @@ RUN apt-get update \
     subversion \
  && rm -rf /var/lib/apt/lists/*
 
-RUN groupadd --gid ${LOCAL_GID} ${LOCAL_USER} \
- && useradd --uid ${LOCAL_UID} --gid ${LOCAL_GID} --create-home --shell /bin/bash ${LOCAL_USER}
-
-RUN install -d -o ${LOCAL_USER} -g ${LOCAL_GID} /home/${LOCAL_USER}/.codex
+RUN set -eux; \
+    if [ -n "${LOCAL_GID}" ]; then \
+      groupadd --gid "${LOCAL_GID}" "${LOCAL_USER}"; \
+    else \
+      groupadd "${LOCAL_USER}"; \
+    fi; \
+    if [ -n "${LOCAL_UID}" ]; then \
+      useradd --uid "${LOCAL_UID}" --gid "${LOCAL_USER}" --create-home --shell /bin/bash "${LOCAL_USER}"; \
+    else \
+      useradd --gid "${LOCAL_USER}" --create-home --shell /bin/bash "${LOCAL_USER}"; \
+    fi
 
 # Do not point root-owned build and feature-install steps at the dev user's
 # home directory. Devcontainer features run as root and may invoke npm, which

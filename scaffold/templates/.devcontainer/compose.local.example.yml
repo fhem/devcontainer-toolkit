@@ -4,8 +4,9 @@ services:
       FHEM_SOURCE_ROOT: /workspace/fhem-source/fhem
       MODULE_OVERLAY_ROOT: __WORKSPACE_DIR__
       LOCAL_USER: dev
-      LOCAL_UID: 1000
-      LOCAL_GID: 1000
+      # Optional: pin container UID/GID to match the host user.
+      # LOCAL_UID: 1234
+      # LOCAL_GID: 1234
     volumes:
       - ../../fhem-source:/workspace/fhem-source
       # Optional: forward host git identity into the container.

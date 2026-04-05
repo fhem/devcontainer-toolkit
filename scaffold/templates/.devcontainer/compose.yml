@@ -7,8 +7,8 @@ services:
       context: ..
       dockerfile: .devcontainer/Dockerfile
       args:
-        LOCAL_UID: ${LOCAL_UID:-1000}
-        LOCAL_GID: ${LOCAL_GID:-1000}
+        LOCAL_UID: ${LOCAL_UID:-}
+        LOCAL_GID: ${LOCAL_GID:-}
         LOCAL_USER: ${LOCAL_USER:-dev}
     image: __REPO_SLUG__-dev-local:bookworm
     container_name: __REPO_SLUG__-dev
@@ -28,8 +28,8 @@ services:
       EDITOR: "code --wait"
       LOGFILE: /opt/fhem-dev-data/log/fhem-%Y-%m-%d.log
       RESTART: 0
-      FHEM_UID: ${LOCAL_UID:-1000}
-      FHEM_GID: ${LOCAL_GID:-1000}
+      FHEM_UID: ${LOCAL_UID:-}
+      FHEM_GID: ${LOCAL_GID:-}
       MODULE_REPO_ROOT: __WORKSPACE_DIR__
       MODULE_OVERLAY_ROOT: ${MODULE_OVERLAY_ROOT:-__WORKSPACE_DIR__}
       FHEM_TOOLKIT_ROOT: ${FHEM_TOOLKIT_ROOT:-/workspace/fhem-devcontainer-toolkit}

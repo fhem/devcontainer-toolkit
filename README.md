@@ -27,7 +27,8 @@ The generated consumer layer uses these environment variables:
 - `FHEM_TOOLKIT_FEATURES`: optional comma-separated add-ons
 - `FHEM_SVN_ROOT`: optional SVN working copy root for the SVN add-on
 - `LOCAL_USER` / `LOCAL_UID` / `LOCAL_GID`: optional local overrides for the
-  generic container user (defaults: `dev`, `1000`, `1000`)
+  generic container user (`LOCAL_UID` / `LOCAL_GID` can be omitted to let the
+  container choose its own IDs)
 
 `FHEM_SOURCE_ROOT` defaults to `${MODULE_REPO_ROOT}/fhem` so full-tree
 repositories continue to work. Module-only repositories should set it to an
